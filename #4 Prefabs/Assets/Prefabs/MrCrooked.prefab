@@ -293,6 +293,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &3790427526304569410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4948104459521019602}
+  m_Layer: 0
+  m_Name: PointOfShoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4948104459521019602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790427526304569410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.327, y: 0, z: 0}
+  m_LocalScale: {x: 1.6666665, y: 7.8125, z: 5.882353}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7288254439349548818}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4444475845674810083
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +792,7 @@ GameObject:
   - component: {fileID: 8713913748431831931}
   - component: {fileID: 568277733697135903}
   - component: {fileID: 791949907171803073}
+  - component: {fileID: 824459738}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -779,7 +811,8 @@ Transform:
   m_LocalPosition: {x: -0.4026823, y: -0.1867677, z: 1.6826363}
   m_LocalScale: {x: 0.6, y: 0.128, z: 0.17}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4948104459521019602}
   m_Father: {fileID: 5358170614564003506}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -846,6 +879,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &824459738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6986307822871082594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77eb1b49f4de24746bf6705d3cc4d24f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 3464392854356400644, guid: 92cf546090163144e81c657af63d2953, type: 3}
+  pointOfShoot: {fileID: 0}
 --- !u!1 &7956113557825928344
 GameObject:
   m_ObjectHideFlags: 0
