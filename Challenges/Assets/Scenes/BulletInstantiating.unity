@@ -706,6 +706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootKeyCode: 32
+  doubleShootKeyCode: 106
+  tripleShootKeyCode: 107
+  quadrupleShootKeyCode: 108
   ball: {fileID: 8586577125849679640, guid: f72c1c63ef7378948be0e2627740bf0f, type: 3}
   pointOfShoot: {fileID: 429824086}
 --- !u!4 &947975550952158833
