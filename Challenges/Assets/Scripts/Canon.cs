@@ -14,19 +14,10 @@ public class Canon : MonoBehaviour
     public Transform pointOfShoot;
     private bool canShoot = true;
 
-
-
-
-    private void Start()
-    {
-    }
-
-
     private void Update()
     {
         if (canShoot && Input.GetKeyDown(shootKeyCode))
         {
-
             StartCoroutine(Counter(1));
             Shoot();
         }
