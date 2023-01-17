@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
-
-
     [SerializeField] private KeyCode shootKeyCode;
     [SerializeField] private KeyCode doubleShootKeyCode;
     [SerializeField] private KeyCode tripleShootKeyCode;
