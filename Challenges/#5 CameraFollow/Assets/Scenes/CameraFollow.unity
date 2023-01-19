@@ -254,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182540851}
   m_Layer: 0
-  m_Name: Laberinth
+  m_Name: Labyrinth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
