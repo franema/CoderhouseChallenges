@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+        Rotate(GetRotationInput());
         if(!Input.anyKey)
         {
             speed = 0;
@@ -34,5 +35,16 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(rotation * rotationSpeed * Time.deltaTime);
     }
 
+    public void Rotate (Vector2 p_scrollDelta) 
+    {
+        transform.Rotate(Vector3.up, p_scrollDelta.x * rotationSpeed * Time.deltaTime, Space.Self);
+    }
+
+    public Vector2 GetRotationInput ()
+    {
+        var l_mouseX = Input.GetAxis("Mouse X");
+        var l_mouseY = Input.GetAxis("Mouse Y");
+        return new Vector2(l_mouseX, l_mouseY);
+    }
     
 }
