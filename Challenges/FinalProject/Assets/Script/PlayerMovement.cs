@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Rigidbody m_rigibbody;
     [SerializeField] private float speed = 0;
     private float rotationSpeed = 100;
+    private float jumpForce = 5;
 
 
     void Update()
@@ -15,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
         if(!Input.anyKey)
         {
             speed = 0;
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
         }
     }
 
@@ -47,4 +53,8 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(l_mouseX, l_mouseY);
     }
     
+    public void Jump () 
+    {
+        m_rigibbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
 }
