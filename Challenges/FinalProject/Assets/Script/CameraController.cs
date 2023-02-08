@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     private void ChangeCamera()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.C))
         {
             cameraArray[counter].gameObject.SetActive(false);
             counter += 1;
