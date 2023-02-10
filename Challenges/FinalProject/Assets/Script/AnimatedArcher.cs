@@ -11,8 +11,23 @@ public class AnimatedArcher : MonoBehaviour
 
     void Update()
     {
-        isMoving = Input.GetAxis("Vertical") != 0 ;
+        isMoving = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
 
+        SetSpeed();
+        SetJump();
+        SetCrouch();
+        SetSideWalk();
+
+        
+    }
+
+    private void ManageSpeed(float speed)
+    {
+        animator.SetFloat("Speed", speed);
+    }
+
+    private void SetSpeed ()
+    {
         if (isMoving && Input.GetKey(KeyCode.LeftShift))
         {
             ManageSpeed(2);
@@ -25,12 +40,18 @@ public class AnimatedArcher : MonoBehaviour
         {
             ManageSpeed(0);
         }
+    }
 
+    private void SetJump () 
+    {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("Jump");
         }
+    }
 
+    private void SetCrouch ()
+    {
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
             isCrouched = !isCrouched;
@@ -38,8 +59,20 @@ public class AnimatedArcher : MonoBehaviour
         }
     }
 
-    public void ManageSpeed(float speed)
+    private void SetSideWalk()
     {
-        animator.SetFloat("Speed", speed);
+        if(Input.GetAxis("Horizontal") > 0)
+        {
+            animator.SetBool("GoingRight", true);
+        } 
+        else if(Input.GetAxis("Horizontal") < 0)
+        {
+            animator.SetBool("GoingLeft", true);
+        }
+        else 
+        {
+            animator.SetBool("GoingRight", false);
+            animator.SetBool("GoingLeft", false);
+        }
     }
 }
