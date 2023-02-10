@@ -8,53 +8,63 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 0;
     private float rotationSpeed = 100;
     private float jumpForce = 5;
+    private int jumpRetarder = 300;
 
 
     void Update()
     {
-        Move();
+        Move(GetMoveInput());
         Rotate(GetRotationInput());
-        if(!Input.anyKey)
+        if (!Input.anyKey)
         {
             speed = 0;
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
     }
 
-    public void Move()
+
+    public Vector3 GetMoveInput()
     {
         var vertical = Input.GetAxisRaw("Vertical");
         var horizontal = Input.GetAxisRaw("Horizontal");
-        var rotation = new Vector3(0, horizontal, 0);
-        if(Input.GetKey(KeyCode.LeftShift)) 
+        return new Vector3(horizontal, 0, vertical).normalized;
+    }
+    public void Move(Vector3 moveInput)
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 4;
-        } else 
+        }
+        else
         {
             speed = 1;
         }
 
-        transform.position += transform.forward * speed * Time.deltaTime * vertical;
-        transform.Rotate(rotation * rotationSpeed * Time.deltaTime);
+        transform.position += (moveInput.z * transform.forward + moveInput.x * transform.right) * (speed * Time.deltaTime);
     }
 
-    public void Rotate (Vector2 p_scrollDelta) 
+    public void Rotate(Vector2 p_scrollDelta)
     {
         transform.Rotate(Vector3.up, p_scrollDelta.x * rotationSpeed * Time.deltaTime, Space.Self);
     }
 
-    public Vector2 GetRotationInput ()
+    public Vector2 GetRotationInput()
     {
         var l_mouseX = Input.GetAxis("Mouse X");
         var l_mouseY = Input.GetAxis("Mouse Y");
         return new Vector2(l_mouseX, l_mouseY);
     }
-    
-    public void Jump () 
+
+    async System.Threading.Tasks.Task WaitMethod()
     {
+        await System.Threading.Tasks.Task.Delay(jumpRetarder);
+    }
+    public async void Jump()
+    {
+        await WaitMethod();
         m_rigibbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
