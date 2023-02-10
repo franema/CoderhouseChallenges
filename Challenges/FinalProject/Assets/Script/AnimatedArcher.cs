@@ -6,8 +6,9 @@ public class AnimatedArcher : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     private bool isMoving;
-
     private bool isCrouched = false;
+    private bool canJump = true;
+    private int jumpBlocker = 2300;
 
     void Update()
     {
@@ -42,11 +43,18 @@ public class AnimatedArcher : MonoBehaviour
         }
     }
 
-    private void SetJump () 
+    async System.Threading.Tasks.Task WaitMethod(int time)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        await System.Threading.Tasks.Task.Delay(time);
+    }
+    private async void SetJump () 
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && canJump)
         {
+            canJump = false;
             animator.SetTrigger("Jump");
+            await WaitMethod(jumpBlocker);
+            canJump = true;
         }
     }
 

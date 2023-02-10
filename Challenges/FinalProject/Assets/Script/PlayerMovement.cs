@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSpeed = 100;
     private float jumpForce = 5;
     private int jumpRetarder = 300;
+    private int jumpBlocker = 2000;
+    private bool canJump = true;
 
 
     void Update()
@@ -58,13 +60,19 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(l_mouseX, l_mouseY);
     }
 
-    async System.Threading.Tasks.Task WaitMethod()
+    async System.Threading.Tasks.Task WaitMethod(int time)
     {
-        await System.Threading.Tasks.Task.Delay(jumpRetarder);
+        await System.Threading.Tasks.Task.Delay(time);
     }
     public async void Jump()
     {
-        await WaitMethod();
-        m_rigibbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (canJump)
+        {
+            canJump = false;
+            await WaitMethod(jumpRetarder);
+            m_rigibbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            await WaitMethod(jumpBlocker);
+            canJump = true;
+        }
     }
 }
