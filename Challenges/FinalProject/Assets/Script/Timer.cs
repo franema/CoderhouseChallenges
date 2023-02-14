@@ -6,7 +6,7 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] public float TimeLeft;
+    // [SerializeField] public float TimeLeft;
     private bool TimerOn = false;
     [SerializeField] private TMP_Text TimerText;
     [SerializeField] private Image panel;
@@ -20,15 +20,15 @@ public class Timer : MonoBehaviour
     {
         if (TimerOn)
         {
-            if (TimeLeft > 0)
+            if (GameManager.instance.timeLeft > 0)
             {
-                TimeLeft -= Time.deltaTime;
-                UpdateTimer(TimeLeft);
+                GameManager.instance.DecreaseTime();
+                UpdateTimer(GameManager.instance.timeLeft);
             }
             else
             {
                 Debug.Log("Time is Up!");
-                TimeLeft = 0;
+                GameManager.instance.SetTimerToZero();
                 TimerOn = false;
             }
 
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
 
     private void SetPanelColor()
     {
-        switch (TimeLeft)
+        switch (GameManager.instance.timeLeft)
         {
             case > 40:
                 panel.color = Color.green;
