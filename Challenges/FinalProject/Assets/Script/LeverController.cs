@@ -7,15 +7,11 @@ public class LeverController : MonoBehaviour
     [SerializeField] private Animator leverAnimator;
     [SerializeField] private Animator doorAnimator;
     private bool isOpen = false;
-    
-    private void OnTriggerStay(Collider other)
+
+    public void Activate()
     {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            isOpen = !isOpen;
-            leverAnimator.SetBool("LeverIsUp", isOpen);
-            doorAnimator.SetBool("DoorIsOpen", isOpen);
-            
-        }
+        isOpen = !isOpen;
+        leverAnimator.SetBool("LeverIsUp", isOpen);
+        doorAnimator.SetBool("DoorIsOpen", isOpen);
     }
 }
