@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class SatuesController : MonoBehaviour
+{
+    [SerializeField] private Transform[] StatuesPositions;
+    [SerializeField] private List<Transform> PlatesPositions;
+    private float speed = 0.5f;
+    private Dictionary<Transform, bool> statuesDirection = new Dictionary<Transform, bool>();
+    private Dictionary<Transform, bool> statuesIndividualMove = new Dictionary<Transform, bool>();
+    private Vector3 direction = new Vector3(0f, 0f, 2f);
+    private float forwardModifier = 2.65f;
+    private float BackwardModifier = 6.1f;
+    private bool[] orderToOpen = {true, false, false, true, true, false, true, false};
+    private bool[] currentOrder;
+
+
+
+    private void Start()
+    {
+        CreateStatuesMoveDictionary();
+        CreateIndividualMoveDictionary();
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.statuesAreMoving)
+        {
+            MoveStatues();
+        }
+        GameManager.instance.openStatuesDoor = CheckStatuesOrder();        
+    }
+
+    private void MoveStatues()
+    {
+        for (int i = 0; i < StatuesPositions.Length; i++)
+        {
+            if (i % 2 == GameManager.instance.evenOrOdd && statuesDirection[StatuesPositions[i]] && statuesIndividualMove[PlatesPositions[i]])
+            {
+                MoveForward(i);
+            }
+
+            if (i % 2 == GameManager.instance.evenOrOdd && !statuesDirection[StatuesPositions[i]] && statuesIndividualMove[PlatesPositions[i]])
+            {
+                MoveBackwards(i);
+            }
+        }
+    }
+
+    private void MoveForward(int index)
+    {
+        StatuesPositions[index].position += direction * speed * Time.deltaTime;
+        if (StatuesPositions[index].position.z >= PlatesPositions[index].position.z - forwardModifier)
+        {
+            GameManager.instance.statuesAreMoving = false;
+            statuesDirection[StatuesPositions[index]] = !statuesDirection[StatuesPositions[index]];
+        }
+    }
+
+    private void MoveBackwards(int index)
+    {
+        StatuesPositions[index].position -= direction * speed * Time.deltaTime;
+        if (StatuesPositions[index].position.z <= PlatesPositions[index].position.z - BackwardModifier)
+        {
+            GameManager.instance.statuesAreMoving = false;
+            statuesDirection[StatuesPositions[index]] = !statuesDirection[StatuesPositions[index]];
+        }
+    }
+    private void CreateStatuesMoveDictionary()
+    {
+        foreach (Transform statue in StatuesPositions)
+        {
+            statuesDirection.Add(statue, true);
+        }
+    }
+
+    private void CreateIndividualMoveDictionary ()
+    {
+        foreach (Transform plates in PlatesPositions)
+        {
+            statuesIndividualMove.Add(plates, true);
+        }
+    }
+
+    public void ChangeStatueState (Transform statue)
+    {
+        statuesIndividualMove[statue] = !statuesIndividualMove[statue];
+    }
+
+    private bool CheckStatuesOrder () 
+    {   
+        currentOrder = new bool[StatuesPositions.Length];
+        for (int i = StatuesPositions.Length - 1; i >= 0; i--)
+        {
+            currentOrder[i] = statuesDirection[StatuesPositions[i]];
+        }
+        return Enumerable.SequenceEqual(currentOrder, orderToOpen);
+    } 
+}
