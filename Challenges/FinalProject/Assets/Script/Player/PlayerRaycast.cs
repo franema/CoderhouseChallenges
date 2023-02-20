@@ -18,10 +18,8 @@ public class PlayerRaycast : MonoBehaviour
         var hasCollided = Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHitInfo, raycastDistance, layerToCollide);
         if (hasCollided)
         {
-            Debug.Log("Hola");
             if(Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Holis");
                 GameManager.instance.Activate(raycastHitInfo.collider.gameObject);
             }
         }
