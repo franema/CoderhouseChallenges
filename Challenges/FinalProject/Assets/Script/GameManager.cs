@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,26 @@ public class GameManager : MonoBehaviour
     public int evenOrOdd = 0;
     public bool statuesAreMoving = false;
     public bool openStatuesDoor = false;
+    [SerializeField] private KeyCode menuKey;
+    [SerializeField] private GameObject pauseCanvas;
+    private bool isPaused = false;
+    public bool onSight = false;
+    public Transform indicatorTargetTransform;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(menuKey))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -22,6 +44,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        Resume();
     }
 
     public void DecreaseTime()
@@ -48,14 +71,29 @@ public class GameManager : MonoBehaviour
             objectToActivate.GetComponent<LeverController>().Activate();
         }
 
-        if(objectToActivate.name.Equals("LeverMoveStatues"))
+        if (objectToActivate.name.Equals("LeverMoveStatues"))
         {
-            objectToActivate.GetComponent<MoveStatuesLever>().MoveStatues();
+            objectToActivate.GetComponent<MoveStatuesLever>().MoveStatues();            
         }
 
-        if(objectToActivate.name.Equals("LeverInverseMoveStatues"))
+        if (objectToActivate.name.Equals("LeverInverseMoveStatues"))
         {
             objectToActivate.GetComponent<InverseStatuesMoveLever>().InverseStatuesMove();
         }
+    }
+
+    private void PauseGame()
+    {
+        pauseCanvas.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+
+    }
+
+    public void Resume()
+    {
+        pauseCanvas.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 }
