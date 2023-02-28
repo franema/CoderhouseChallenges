@@ -17,11 +17,17 @@ public class PlayerRaycast : MonoBehaviour
     {
         var hasCollided = Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHitInfo, raycastDistance, layerToCollide);
         if (hasCollided)
-        {
+        {   
+            GameManager.instance.onSight = true;
+            GameManager.instance.indicatorTargetTransform = raycastHitInfo.collider.transform;
             if(Input.GetKeyDown(KeyCode.E))
             {
                 GameManager.instance.Activate(raycastHitInfo.collider.gameObject);
             }
+        }
+        else 
+        {
+            GameManager.instance.onSight = false;
         }
 
     }
