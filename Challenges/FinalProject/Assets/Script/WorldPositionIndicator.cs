@@ -27,7 +27,6 @@ public class WorldPositionIndicator : MonoBehaviour
         {
             targetTransform = GameManager.instance.indicatorTargetTransform;
         }
-        Debug.Log(targetTransform.name);
         var screenPoint = Camera.main.WorldToScreenPoint(targetTransform.position);
         rectTransform.position = screenPoint;
 
