@@ -27,17 +27,16 @@ public class ChangingCube : Cube
 
     private void OnPlayerActivatedLeverHandler()
     {
+        Debug.Log("Received onPlayerActivatedLever, from GameManager, to ChangingCube");
         if (changed)
         {
             changed = false;
             ownSpeed = movingCubeData.speed;
-            Debug.Log(ownSpeed);
         }
         else
         {
             changed = true;
             ownSpeed = changedCubeData.speed;
-            Debug.Log(ownSpeed);
         }
     }
 

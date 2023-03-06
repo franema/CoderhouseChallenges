@@ -8,6 +8,7 @@ public class SecretWallController : MonoBehaviour
 
     public void OpenWall()
     {
+        Debug.Log("Received onStatuesOrderCorrect, from StatuesController, to SecretWallController");
         wallAnimator.SetBool("OpenSecretWall", true);
     }
 }

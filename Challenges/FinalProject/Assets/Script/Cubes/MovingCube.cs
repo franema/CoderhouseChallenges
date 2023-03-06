@@ -20,6 +20,7 @@ public class MovingCube : Cube
 
     public void OnReachedWallHandler(float inverter)
     {
+        Debug.Log("Received onReachedWall, from Cube, to MovingCube");
         if (Time.time > timer + 0.3)
         {   
             timer = Time.time;

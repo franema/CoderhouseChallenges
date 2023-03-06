@@ -16,6 +16,7 @@ public class ManageTimeOver : MonoBehaviour
     }
     private void OnTimeOverHandler ()
     {
+        Debug.Log("Received onTimeOver, from Timer, to ManageTimeOver");
         GameManager.instance.gameEnded = true;
         GameManager.instance.PauseGame();
         pauseMenu.gameObject.SetActive(false);

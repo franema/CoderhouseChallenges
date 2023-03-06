@@ -7,6 +7,7 @@ public class PlayerDeathHandler : MonoBehaviour
     [SerializeField] private Transform respawnPoint;
     public void OnDeathHandler ()
     {
+        Debug.Log("Received onDeath, from Cube, to PlayerDeathHandler");
         gameObject.transform.position = respawnPoint.transform.position;
     }
 
