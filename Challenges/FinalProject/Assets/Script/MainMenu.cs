@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
-
     [SerializeField] private AudioMixer audioMixer;
     public void PlayGame ()
     {
@@ -30,5 +29,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-  
+
+    
 }
