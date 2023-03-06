@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class GameManager : MonoBehaviour
@@ -12,16 +13,20 @@ public class GameManager : MonoBehaviour
     private float timeToAdd = 20;
     public int evenOrOdd = 0;
     public bool statuesAreMoving = false;
-    public bool openStatuesDoor = false;
     [SerializeField] private KeyCode menuKey;
     [SerializeField] private GameObject pauseCanvas;
     private bool isPaused = false;
     public bool onSight = false;
     public Transform indicatorTargetTransform;
+    public event Action onPlayerActivatedLever;
+    [SerializeField] private Timer m_timer;
+    public bool gameEnded = false;
+
+
 
     private void Update()
     {
-        if (Input.GetKeyDown(menuKey))
+        if (Input.GetKeyDown(menuKey) && !gameEnded)
         {
             if (isPaused)
             {
@@ -80,14 +85,18 @@ public class GameManager : MonoBehaviour
         {
             objectToActivate.GetComponent<InverseStatuesMoveLever>().InverseStatuesMove();
         }
+
+        if(objectToActivate.name.Equals("StopCubeLever") || objectToActivate.name.Equals("StopCubeLever1"))
+        {
+            onPlayerActivatedLever.Invoke();
+        }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         pauseCanvas.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
-
     }
 
     public void Resume()
@@ -96,4 +105,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
+    
 }
