@@ -18,9 +18,9 @@ public class MovingCube : Cube
         changeDirection(gameObject.transform.position.z);
     }
 
-    private void OnReachedWallHandler(float inverter)
+    public void OnReachedWallHandler(float inverter)
     {
-        if (Time.time > timer + 0.5)
+        if (Time.time > timer + 0.3)
         {   
             timer = Time.time;
             directionInverter *= inverter;
