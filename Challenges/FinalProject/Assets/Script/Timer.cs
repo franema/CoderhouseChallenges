@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 public class Timer : MonoBehaviour
 {
     // [SerializeField] public float TimeLeft;
     private bool TimerOn = false;
     [SerializeField] private TMP_Text TimerText;
     [SerializeField] private Image panel;
+    public event Action onTimeOver;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class Timer : MonoBehaviour
             }
             else
             {
-                Debug.Log("Time is Up!");
+                onTimeOver?.Invoke();
                 GameManager.instance.SetTimerToZero();
                 TimerOn = false;
             }
