@@ -8,6 +8,9 @@ public class StopCubeLever : MonoBehaviour
 {
     
     [SerializeField] private ChangingCube changingCube;
+    [SerializeField] private Animator leverAnimator;
+    private bool isActivated = false;
+
 
     private void Start() 
     {
@@ -16,7 +19,8 @@ public class StopCubeLever : MonoBehaviour
 
     private void OnPlayerActivatedLeverHandler()
     {
-
+        isActivated = !isActivated;
+        leverAnimator.SetBool("LeverIsUp", isActivated);
     }
     
 
