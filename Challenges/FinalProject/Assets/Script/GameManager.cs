@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void Activate(GameObject objectToActivate)
     {
-        Debug.Log(objectToActivate.name);
+        // Debug.Log(objectToActivate.name);
         if (objectToActivate.name.Equals("LeverFinal"))
         {
             objectToActivate.GetComponent<LeverController>().Activate();
