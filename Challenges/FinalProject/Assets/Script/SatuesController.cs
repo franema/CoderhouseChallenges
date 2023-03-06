@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SatuesController : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class SatuesController : MonoBehaviour
     private Vector3 direction = new Vector3(0f, 0f, 2f);
     private float forwardModifier = 2.65f;
     private float BackwardModifier = 6.1f;
-    private bool[] orderToOpen = {true, false, false, true, true, false, true, false};
+    private bool[] orderToOpen = {true, false, true, false, true, false, true, false};
     private bool[] currentOrder;
+    public UnityEvent onStatuesOrderCorrect;
 
 
 
@@ -30,7 +32,7 @@ public class SatuesController : MonoBehaviour
         {
             MoveStatues();
         }
-        GameManager.instance.openStatuesDoor = CheckStatuesOrder();        
+        CheckStatuesOrder();        
     }
 
     private void MoveStatues()
@@ -89,13 +91,17 @@ public class SatuesController : MonoBehaviour
         statuesIndividualMove[statue] = !statuesIndividualMove[statue];
     }
 
-    private bool CheckStatuesOrder () 
+    private void CheckStatuesOrder () 
     {   
         currentOrder = new bool[StatuesPositions.Length];
         for (int i = StatuesPositions.Length - 1; i >= 0; i--)
         {
             currentOrder[i] = statuesDirection[StatuesPositions[i]];
         }
-        return Enumerable.SequenceEqual(currentOrder, orderToOpen);
+        if(Enumerable.SequenceEqual(currentOrder, orderToOpen))
+        {
+            onStatuesOrderCorrect.Invoke();
+        }
     } 
+
 }

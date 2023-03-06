@@ -6,12 +6,8 @@ public class SecretWallController : MonoBehaviour
 {
     [SerializeField] private Animator wallAnimator;
 
-
-    private void Update() 
+    public void OpenWall()
     {
-        if(GameManager.instance.openStatuesDoor)
-        {
-            wallAnimator.SetBool("OpenSecretWall", true);
-        }
+        wallAnimator.SetBool("OpenSecretWall", true);
     }
 }
