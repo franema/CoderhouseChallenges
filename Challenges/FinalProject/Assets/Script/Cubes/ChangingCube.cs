@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangingCube : Cube
+public class ChangingCube : RoundTripCube
 {
     [SerializeField] protected MovingCubeData changedCubeData;
     [SerializeField] protected MovingCubeData movingCubeData;
+    [SerializeField] protected CubeAxisData directionAxis;
     private float directionInverter = 1;
 
     private float ownSpeed;
@@ -21,13 +20,12 @@ public class ChangingCube : Cube
     }
     private void Update()
     {
-        Move(ownSpeed, directionInverter);
+        Move(ownSpeed, directionInverter, directionAxis.axis);
         changeDirection(gameObject.transform.position.z);
     }
 
     private void OnPlayerActivatedLeverHandler()
     {
-        Debug.Log("Received onPlayerActivatedLever, from GameManager, to ChangingCube");
         if (changed)
         {
             changed = false;

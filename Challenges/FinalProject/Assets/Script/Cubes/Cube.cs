@@ -1,29 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
+
 
 public class Cube : MonoBehaviour
 {
-    [SerializeField] protected CubeData CubeData;
-    [SerializeField] protected Transform startMark;
-    [SerializeField] protected Transform endMark;
-    public event Action<float> onReachedWall;
     public UnityEvent onPlayerCollided;
 
-
-    public void Move(float speed, float directionInverter)
+    public void Move(float speed, float directionInverter, Vector3 direction)
     {
-        gameObject.transform.position += CubeData.direction * speed * directionInverter * Time.deltaTime;
-    }
-
-    public void changeDirection(float cubePosition)
-    {
-        if (cubePosition >= endMark.transform.position.z || cubePosition <= startMark.transform.position.z)
-        {
-            onReachedWall?.Invoke(CubeData.inverter);
-        }
+        gameObject.transform.position += direction * speed * directionInverter * Time.deltaTime;
     }
 
     void OnCollisionEnter(Collision other)
@@ -33,5 +18,5 @@ public class Cube : MonoBehaviour
             onPlayerCollided?.Invoke();
         }
     }
-
+    
 }

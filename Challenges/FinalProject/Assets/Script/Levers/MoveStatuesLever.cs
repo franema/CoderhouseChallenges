@@ -8,8 +8,11 @@ public class MoveStatuesLever : MonoBehaviour
     private bool isDown = false;
     public void MoveStatues()
     {
-        fireAnimation();
-        GameManager.instance.statuesAreMoving = true;
+        if (!GameManager.instance.statuesAreMoving)
+        {
+            fireAnimation();
+            GameManager.instance.statuesAreMoving = true;
+        }
     }
 
     private void fireAnimation()

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+
 public class Timer : MonoBehaviour
 {
     // [SerializeField] public float TimeLeft;
@@ -11,6 +12,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TMP_Text TimerText;
     [SerializeField] private Image panel;
     public event Action onTimeOver;
+
 
     void Start()
     {

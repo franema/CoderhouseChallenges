@@ -8,11 +8,13 @@ public class StatuesFloorPlates : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        statuesController.ChangeStatueState(this.transform);
+        Debug.Log("enter");
+        statuesController.ChangeStatueState(this.transform, false);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        statuesController.ChangeStatueState(this.transform);
+        Debug.Log("exit");
+        statuesController.ChangeStatueState(this.transform, true);
     }
 }

@@ -8,7 +8,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private float _timeLeft = 120;
+    private float _timeLeft = 300;
     public float timeLeft => _timeLeft;
     private float timeToAdd = 20;
     public int evenOrOdd = 0;
@@ -24,20 +24,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(menuKey) && !gameEnded)
-        {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
-    }
 
     private void Awake()
     {
@@ -52,6 +38,20 @@ public class GameManager : MonoBehaviour
         Resume();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(menuKey) && !gameEnded)
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
+    }
     public void DecreaseTime()
     {
         _timeLeft -= Time.deltaTime;

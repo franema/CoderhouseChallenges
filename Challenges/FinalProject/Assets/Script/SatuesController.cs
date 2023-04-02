@@ -14,7 +14,7 @@ public class SatuesController : MonoBehaviour
     private Vector3 direction = new Vector3(0f, 0f, 2f);
     private float forwardModifier = 2.65f;
     private float BackwardModifier = 6.1f;
-    private bool[] orderToOpen = {true, false, true, false, true, false, true, false};
+    private bool[] orderToOpen = { true, false, false, true, true, false, true, false };
     private bool[] currentOrder;
     public UnityEvent onStatuesOrderCorrect;
 
@@ -32,7 +32,7 @@ public class SatuesController : MonoBehaviour
         {
             MoveStatues();
         }
-        CheckStatuesOrder();        
+        CheckStatuesOrder();
     }
 
     private void MoveStatues()
@@ -56,8 +56,8 @@ public class SatuesController : MonoBehaviour
         StatuesPositions[index].position += direction * speed * Time.deltaTime;
         if (StatuesPositions[index].position.z >= PlatesPositions[index].position.z - forwardModifier)
         {
-            GameManager.instance.statuesAreMoving = false;
             statuesDirection[StatuesPositions[index]] = !statuesDirection[StatuesPositions[index]];
+            GameManager.instance.statuesAreMoving = false;
         }
     }
 
@@ -66,8 +66,8 @@ public class SatuesController : MonoBehaviour
         StatuesPositions[index].position -= direction * speed * Time.deltaTime;
         if (StatuesPositions[index].position.z <= PlatesPositions[index].position.z - BackwardModifier)
         {
-            GameManager.instance.statuesAreMoving = false;
             statuesDirection[StatuesPositions[index]] = !statuesDirection[StatuesPositions[index]];
+            GameManager.instance.statuesAreMoving = false;
         }
     }
     private void CreateStatuesMoveDictionary()
@@ -78,7 +78,7 @@ public class SatuesController : MonoBehaviour
         }
     }
 
-    private void CreateIndividualMoveDictionary ()
+    private void CreateIndividualMoveDictionary()
     {
         foreach (Transform plates in PlatesPositions)
         {
@@ -86,22 +86,23 @@ public class SatuesController : MonoBehaviour
         }
     }
 
-    public void ChangeStatueState (Transform statue)
+    public void ChangeStatueState(Transform statue, bool state)
     {
-        statuesIndividualMove[statue] = !statuesIndividualMove[statue];
+        statuesIndividualMove[statue] = state;
     }
 
-    private void CheckStatuesOrder () 
-    {   
+    public void CheckStatuesOrder()
+    {
         currentOrder = new bool[StatuesPositions.Length];
         for (int i = StatuesPositions.Length - 1; i >= 0; i--)
         {
             currentOrder[i] = statuesDirection[StatuesPositions[i]];
+            Debug.Log($"{i}: {currentOrder[i]}");
         }
-        if(Enumerable.SequenceEqual(currentOrder, orderToOpen))
+        if (Enumerable.SequenceEqual(currentOrder, orderToOpen))
         {
             onStatuesOrderCorrect.Invoke();
         }
-    } 
+    }
 
 }

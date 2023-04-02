@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingCube : Cube
+public class MovingCube : RoundTripCube
 {
     [SerializeField] protected MovingCubeData movingCubeData;
+    [SerializeField] protected CubeAxisData directionAxis;
     private float timer;
     private float directionInverter = 1;
 
@@ -14,13 +13,12 @@ public class MovingCube : Cube
     }
     private void Update()
     {
-        Move(movingCubeData.speed, directionInverter);
+        Move(movingCubeData.speed, directionInverter, directionAxis.axis);
         changeDirection(gameObject.transform.position.z);
     }
 
     public void OnReachedWallHandler(float inverter)
     {
-        Debug.Log("Received onReachedWall, from Cube, to MovingCube");
         if (Time.time > timer + 0.3)
         {   
             timer = Time.time;
